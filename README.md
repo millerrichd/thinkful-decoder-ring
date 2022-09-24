@@ -34,6 +34,8 @@ Write a caesar, polybius, and substitution ciphers algorithms and supporting tes
 ### Tests Written by Me
 
 `caesar.test.js` Contains the tests that test the caesar function.
+
 `polybius.test.js` Contains the tests that test the polybius function.
+
 `substitution.test.js` Contains the tests that test the subsititution function.
 
