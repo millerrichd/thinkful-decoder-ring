@@ -27,11 +27,11 @@ describe('caesar', () => {
       const actual = caesar('hello world!', 3);
       expect(actual).to.match(/[\s\!]/);
     });
-    it('should keep capitals', () => {
+    it('should make capitals be lowercase', () => {
       const actual = caesar('Hello World!', 3);
       expect(actual).to.equal('khoor zruog!');
     });
-    it('should word wrap correctly atthe end of the alphabet', () => {
+    it('should word wrap correctly at the end of the alphabet', () => {
       const actual = caesar('hello world!', 7);
       expect(actual).to.equal('olssv dvysk!');
     });
@@ -49,11 +49,11 @@ describe('caesar', () => {
       const actual = caesar('khoor zruog!', 3, false);
       expect(actual).to.match(/[\s\!]/);
     });
-    it('should keep capitals', () => {
+    it('should make capitals be lowercase', () => {
       const actual = caesar('Khoor Zruog!', 3, false);
       expect(actual).to.equal('hello world!');
     });
-    it('should word wrap correctly atthe end of the alphabet', () => {
+    it('should word wrap correctly at the end of the alphabet', () => {
       const actual = caesar("olssv dvysk!", 7, false);
       expect(actual).to.equal('hello world!');
     });

@@ -4,8 +4,63 @@
 // of the anonymous function on line 6
 
 const substitutionModule = (function () {
-  // you can add any code you want within this function scope
+  //pulling the encode and decode functions into their own helper function to make it more readable
 
+  /*
+    encodeMessage ::
+      input: message, encrypted alphabet, base alphabet
+      output: encrypted message
+  */
+  function encodeMessage(message, alphabet, baseAlphabet) {
+    let newMessage = '';
+
+    //encode the string
+    for(let index = 0; index < message.length; index++) {
+      //find the character at the message index
+      const charAtIndex = message.charAt(index);
+      
+      if(charAtIndex.match(/\s/)) {
+        //if it is a space just move the space over.
+        newMessage += charAtIndex;
+      } else {
+        //otherwise read get the index of the letter of the alphabet and then use that index in the encrypted alphabet.
+        const alphaIndex = baseAlphabet.indexOf(charAtIndex.toLowerCase());
+        newMessage += alphabet[alphaIndex];
+      }
+    }
+    return newMessage;
+  }
+
+  /*
+    decodeMessage ::
+      input: message, encrypted alphabet, base alphabet
+      output: decrypted message
+  */
+  function decodeMessage(message, alphabet, baseAlphabet) {
+    let newMessage = '';
+
+    //decode the string
+    for(let index = 0; index < message.length; index++) {
+      //find the character at the message index
+      const charAtIndex = message.charAt(index);
+
+      if(charAtIndex.match(/\s/)) {
+        //if it is a space just move the space over.
+        newMessage += charAtIndex;
+      } else {
+        //otherwise read get the index of the letter of the alphabet and then use that index in the encrypted alphabet.
+        const alphaIndex = alphabet.indexOf(charAtIndex.toLowerCase());
+        newMessage += baseAlphabet[alphaIndex];
+      }
+    }
+    return newMessage;
+  }
+
+  /*
+  substitution ::
+    input: input message, alphabet, and flag to encode or decode
+    output: encrypted message;
+  */
   function substitution(input, alphabet, encode = true) {
     //check if the alphabet is even defined.
     if(!alphabet) return false
@@ -18,31 +73,14 @@ const substitutionModule = (function () {
     if(!(Array.from(alphaSet).length === 26)) return false;
 
     //build out base alphabet.
-    const baseAlphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    const baseAlphabet = 'abcdefghijklmnopqrstuvwxyz';
 
     let newMessage = '';
+    //encode or decode based on the flag.
     if(encode) {
-      //encode the string
-      for(let index = 0; index < input.length; index++) {
-        const letterAtIndex = input.charAt(index);
-        if(letterAtIndex.match(/[A-Za-z]/)) {
-          const alphaIndex = baseAlphabet.indexOf(letterAtIndex.toLowerCase());
-          newMessage += alphabet[alphaIndex];
-        } else {
-          newMessage += letterAtIndex;
-        }
-      }
+      newMessage = encodeMessage(input, alphabet, baseAlphabet);
     } else {
-      //then we are decoding
-      for(let index = 0; index < input.length; index++) {
-        const letterAtIndex = input.charAt(index);
-        if(letterAtIndex.match(/\s/)) {
-          newMessage += letterAtIndex;
-        } else {
-          const alphaIndex = alphabet.indexOf(letterAtIndex.toLowerCase());
-          newMessage += baseAlphabet[alphaIndex];
-        }
-      }
+      newMessage = decodeMessage(input, alphabet, baseAlphabet);
     }
 
     //finally return the new message
